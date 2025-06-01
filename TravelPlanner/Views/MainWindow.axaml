@@ -3,18 +3,84 @@
         xmlns:vm="using:TravelPlanner.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="900"
         x:Class="TravelPlanner.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="TravelPlanner">
+        Title="TravelPlanner"
+        Width="600"
+        Height="900"
+        >
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Tytul -->
+        <TextBlock Text="Planer Podróży" FontSize="24" HorizontalAlignment="Center"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Formularz-->
+            <StackPanel Spacing="10" Grid.Column="0">
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <!-- Imie i nazwisko -->
+                <TextBlock Text="Imię i nazwisko:"/>
+                <TextBox Name="NameTextBox" Width="200" HorizontalAlignment="Left"/>
+
+                <!--Kraj-->
+                <TextBlock Text="Wybierz kraj:"/>
+                <ComboBox Name="CountryComboBox" Width="200" SelectionChanged="CountryComboBox_OnSelectionChanged">
+                    <ComboBoxItem Content="Włochy"/>
+                    <ComboBoxItem Content="Japonia"/>
+                    <ComboBoxItem Content="Norwegia"/>
+                    <ComboBoxItem Content="USA"/>
+                    <ComboBoxItem Content="Francja"/>
+                </ComboBox>
+                
+                <!--Atrakcje turystyczne-->
+                <TextBlock Text="Wybierz atrakcje turystyczne"/>
+                <StackPanel>
+                    <CheckBox Name="MuseumsCheckBox" Content="Muzea"/>
+                    <CheckBox Name="ParksCheckBox" Content="Parki Narodowe"/>
+                    <CheckBox Name="MonumentsCheckBox" Content="Zabytki"/>
+                    <CheckBox Name="RestaurantsCheckBox" Content="Restauracje"/>
+                    <CheckBox Name="ArtGalleriesCheckBox" Content="Galerie sztuki"/>
+                    <CheckBox Name="FestivalsCheckBox" Content="Festiwale i koncerty"/>
+                </StackPanel>
+                
+                <!--Srodek transportu-->
+                <TextBlock Text="Wybierz srodek transportu"/>
+                <StackPanel>
+                    <RadioButton GroupName="Transport" Content="Samolot" Name="PlaneRadioButton"/>
+                    <RadioButton GroupName="Transport" Content="Samochód" Name="CarRadioButton"/>
+                    <RadioButton GroupName="Transport" Content="Pociag" Name="TrainRadioButton"/>
+                    <RadioButton GroupName="Transport" Content="Prom" Name="ShipRadioButton"/>
+                </StackPanel>
+                
+                <!--Miasta ktore chce odwiedzic-->
+                <TextBlock Text="Dodaj miasta ktore chcesz odwiedzic"/>
+                <StackPanel>
+                    <TextBox Name="CityTextBox" Width="200" HorizontalAlignment="Left"/>
+                    <Button Name="AddCityButton" Content="Dodaj miasto" Click="AddCityButton_OnClick"/>
+                </StackPanel>
+                
+                <ListBox Name="CitiesListBox" Height="100" Width="200" HorizontalAlignment="Left"/>
+                
+                <Button Content="Pokaż szczegóły podróży" Click="ShowSummaryButton_OnClick" Margin="10"/>
+            </StackPanel>
+            
+            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="20">
+                <Image Name="CountryImage" Stretch="UniformToFill"/>
+            </Border>
+            
+        </Grid>
+    </Grid>
 
 </Window>
