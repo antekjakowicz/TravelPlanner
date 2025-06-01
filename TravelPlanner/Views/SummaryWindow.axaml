@@ -9,7 +9,14 @@
         Height="500"
         >
     
-        <ScrollViewer Padding="10">
-                <StackPanel x:Name="SummaryStackPanel"/>
-        </ScrollViewer>
+        <StackPanel>
+                <StackPanel>
+                        <TextBlock x:Name="TravelerNameTextBlock" FontSize="16" Margin="0,5"/>
+                        <TextBlock x:Name="CountryTextBlock" FontSize="16" Margin="0,5"/>
+                        <TextBlock x:Name="TransportTextBlock" FontSize="16" Margin="0,5"/>
+                        <TextBlock x:Name="AttractionsTextBlock" FontSize="16" Margin="0,5" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="CitiesTextBlock" FontSize="16" Margin="0,5" TextWrapping="Wrap"/>
+                </StackPanel>
+                <Button Content="Zapisz do pliku" Width="150" Click="SaveToFileButton_Click"/>
+        </StackPanel>
 </Window>

@@ -1,40 +1,68 @@
+using System;
 using System.Collections.Generic;
-using Avalonia;
-using Avalonia.Animation;
+using System.IO;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 
 namespace TravelPlanner.Views;
 
 public partial class SummaryWindow : Window
 {
+    private string travelerName;
+    private string country;
+    private string transport;
+    private List<string> attractionsList = new();
+    private List<string> citiesList = new();
+
     public SummaryWindow(string travelerName, string country, List<string> attractions, string transport, List<string> cities)
     {
         InitializeComponent();
-        BuildSummary(travelerName, country, attractions, transport, cities);
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
-
-    private void BuildSummary(string travelerName, string country, List<string> attractions, string transport,
-        List<string> cities)
-    {
-        var panel = this.FindControl<Panel>("SummaryStackPanel");
         
-        panel.Children.Add(new TextBlock { Text = $"👤 Podróżujący: {travelerName}" });
-        panel.Children.Add(new TextBlock { Text = $"🌍 Kraj docelowy: {country}" });
-        panel.Children.Add(new TextBlock { Text = $"🚗 Transport: {transport}" });
-
-        panel.Children.Add(new TextBlock { Text = $"🏞️ Atrakcje: {string.Join(", ", attractions)}" });
-        panel.Children.Add(new TextBlock { Text = $"🏙️ Miasta do odwiedzenia: {string.Join(", ", cities)}" });
+        /*Dodanie danych do axamlowych pol*/
+        TravelerNameTextBlock.Text = $"👤 Podróżujący: {travelerName}";
+        CountryTextBlock.Text = $"🌍 Kraj docelowy: {country}";
+        TransportTextBlock.Text = $"🚗 Transport: {transport}";
+        AttractionsTextBlock.Text = $"🏞️ Atrakcje: {string.Join(", ", attractions)}";
+        CitiesTextBlock.Text = $"🏙️ Miasta do odwiedzenia: {string.Join(", ", cities)}";
+        
+        /*pola klas w konstruktorze do zapisu w pliku*/
+        this.travelerName = travelerName;
+        this.country = country;
+        this.transport = transport;
+        this.attractionsList = attractions;
+        this.citiesList = cities;
     }
-    
-    private void CloseButton_Click(object? sender, RoutedEventArgs e)
+
+    /*Zapis podsumowania do pliku*/
+    private void SaveToFileButton_Click(object? sender, RoutedEventArgs e)
     {
-        this.Close();
+        string summaryText = GenerateSummaryText();
+        string filePath = "summary.txt";
+
+        try
+        {
+            File.WriteAllText(filePath, summaryText);
+            Console.WriteLine("Zapisano do pliku: "+filePath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    /*Wygenerowanie tekstu do pliku txt*/
+    private string GenerateSummaryText()
+    {
+        return string.Join(Environment.NewLine, new[]
+        {
+            "📋 PODSUMOWANIE PODRÓŻY",
+            "",
+            $"👤 Podróżujący: {travelerName}",
+            $"🌍 Kraj docelowy: {country}",
+            $"🚗 Transport: {transport}",
+            $"🏞️ Atrakcje: {string.Join(", ", attractionsList)}",
+            $"🏙️ Miasta do odwiedzenia: {string.Join(", ", citiesList)}",
+            ""
+        });
     }
 }

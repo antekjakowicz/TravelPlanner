@@ -16,6 +16,7 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
+    /*Przycisk do dodania miasta do listy*/
     private void AddCityButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var city = CityTextBox.Text;
@@ -26,6 +27,7 @@ public partial class MainWindow : Window
         }
     }
 
+    /*Zmiana obrazka powiazana z comboboxem*/
     private void CountryComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var selectedCountry = (CountryComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
@@ -55,6 +57,7 @@ public partial class MainWindow : Window
         }
     }
 
+    /*wywolanie tego nowego okienka z podsumowaniem*/
     private void ShowSummaryButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var name = NameTextBox.Text;

@@ -70,12 +70,13 @@
                     <TextBox Name="CityTextBox" Width="200" HorizontalAlignment="Left"/>
                     <Button Name="AddCityButton" Content="Dodaj miasto" Click="AddCityButton_OnClick"/>
                 </StackPanel>
-                
                 <ListBox Name="CitiesListBox" Height="100" Width="200" HorizontalAlignment="Left"/>
                 
+                <!--Przycisk do podsumowania-->
                 <Button Content="Pokaż szczegóły podróży" Click="ShowSummaryButton_OnClick" Margin="10"/>
             </StackPanel>
             
+            <!--Obrazek -->
             <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="20">
                 <Image Name="CountryImage" Stretch="UniformToFill"/>
             </Border>
